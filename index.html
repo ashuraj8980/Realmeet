@@ -256,7 +256,7 @@
         </div>
 
         <div class="details-side">
-          <div class="muted">Transfer Payment Directly to:</div>
+          <div class="muted">Transfer Payment Directly to upi:</div>
           <strong class="upi-highlight" id="upiVpaDisplay">Khushi.0@ptyes</strong>
           
           <div style="margin-top:15px">
@@ -298,7 +298,7 @@
       <div class="security-note-enhanced">
         <strong>IMPORTANT TRANSACTION NOTE</strong>
         <p><strong></strong><strong>details will be shared only after you send the payment screenshot on Instagram</strong></p>
-        <p><strong></strong></p>
+        <p><strong></strong> </p>
       </div>
 
     </div>
@@ -362,10 +362,9 @@
       document.getElementById('payAmount').innerText = "₹" + amount;
       document.getElementById('payNote').innerHTML = "Purpose: <strong>Reel Meet Discussion on Call and after call I'll share my Pic and Profile</strong>"; 
       
-      // Build UPI payload for the deep link
-      // *** FINAL CHANGE: UPI deep link is now just the protocol to force the UPI app to open to the homepage or selector. ***
+      // *** FINAL SIMPLE LINK: Only the UPI protocol. This should launch the app selector. ***
       const upiData = `upi://`; 
-      // Note: We don't set this to an input field anymore, but we'll still use it for the openDeepLink function
+      window._upiDeepLink = upiData; // Store the link for the click handler
       
       document.querySelector('.insta-link').href = INSTAGRAM_LINK;
       document.getElementById('upiVpaDisplay').innerText = MERCHANT_UPI; // Show UPI ID
@@ -386,7 +385,7 @@
     }
 
     function copyUPI(){
-        // CopyUPI now copies only the VPA since the deep link is useless
+        // CopyUPI copies only the VPA 
         navigator.clipboard && navigator.clipboard.writeText(MERCHANT_UPI).then(()=>{
             alert('UPI ID copied: ' + MERCHANT_UPI + '. Use this for manual payment.');
         }, ()=>{ alert('Copy failed. Please copy the UPI ID directly (Khushi.0@ptyes).') });
@@ -394,7 +393,7 @@
 
     function openDeepLink(){
       // OpenDeepLink uses the generic upi:// link
-      window.location.href = `upi://`; 
+      window.location.href = window._upiDeepLink; 
     }
 
     function iPaid(){
