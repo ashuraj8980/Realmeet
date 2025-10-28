@@ -297,9 +297,9 @@
       </div>
 
       <div class="security-note-enhanced">
-        <strong> IMPORTANT TRANSACTION NOTE </strong>
-        <p> <strong></strong> <strong>details will be shared only after you send the payment screenshot on Instagram</strong></p>
-        <p><strong></strong></p>
+        <strong>&#9888; IMPORTANT TRANSACTION NOTE &#9888;</strong>
+        <p>This is a <strong>secure payment processing gateway</strong>. Your <strong>details will be shared ONLY after you send the payment screenshot on Instagram</strong> for official verification.</p>
+        <p><strong>NEVER</strong> share your UPI PIN or OTP with anyone.</p>
       </div>
 
     </div>
@@ -364,10 +364,9 @@
       document.getElementById('payNote').innerHTML = "Purpose: <strong>Reel Meet Discussion on Call and after call I'll share my Pic and Profile</strong>"; 
       
       // Build UPI payload for the deep link
-      const upiData = `upi://pay?pa=${encodeURIComponent(MERCHANT_UPI)}&pn=${encodeURIComponent(MERCHANT_NAME)}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent('Reel Meet Discuss')}&mc=5499`; 
+      // *** MANUAL AMOUNT CHANGE: Removed &am=${encodeURIComponent(amount)} from the UPI data ***
+      const upiData = `upi://pay?pa=${encodeURIComponent(MERCHANT_UPI)}&pn=${encodeURIComponent(MERCHANT_NAME)}&cu=INR&tn=${encodeURIComponent('Reel Meet Discuss')}&mc=5499`; 
       document.getElementById('upiLink').value = upiData;
-
-      // QR code now loads directly from the file "qrcode.jpg" which is set in HTML.
       
       document.querySelector('.insta-link').href = INSTAGRAM_LINK;
       document.getElementById('upiVpaDisplay').innerText = MERCHANT_UPI; // Show UPI ID
