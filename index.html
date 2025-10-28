@@ -265,10 +265,9 @@
           </div>
 
           <div style="margin-top:15px">
-            <label class="muted upi-alt-text">Click below to open UPI Apps</label>
+            <label class="muted upi-alt-text">Click below to open UPI Apps (App will open, use QR Code to pay)</label>
             <div style="margin-top:6px;display:flex;gap:8px;align-items:center">
-              <input id="upiLink" class="input" style="flex:1" readonly/>
-              <button class="smallbtn" onclick="copyUPI()">Copy UPI Link</button>
+              <p class="muted" style="margin: 0; font-size: 14px; flex: 1;"><strong>Click 'Open in UPI App' to launch the app, then scan the QR code above manually.</strong></p>
             </div>
           </div>
 
@@ -297,9 +296,9 @@
       </div>
 
       <div class="security-note-enhanced">
-        <strong>&#9888; IMPORTANT TRANSACTION NOTE &#9888;</strong>
-        <p>This is a <strong>secure payment processing gateway</strong>. Your <strong>details will be shared ONLY after you send the payment screenshot on Instagram</strong> for official verification.</p>
-        <p><strong>NEVER</strong> share your UPI PIN or OTP with anyone.</p>
+        <strong>IMPORTANT TRANSACTION NOTE</strong>
+        <p><strong></strong><strong>details will be shared only after you send the payment screenshot on Instagram</strong></p>
+        <p><strong></strong></p>
       </div>
 
     </div>
@@ -364,9 +363,9 @@
       document.getElementById('payNote').innerHTML = "Purpose: <strong>Reel Meet Discussion on Call and after call I'll share my Pic and Profile</strong>"; 
       
       // Build UPI payload for the deep link
-      // *** MANUAL AMOUNT CHANGE: Removed &am=${encodeURIComponent(amount)} from the UPI data ***
-      const upiData = `upi://pay?pa=${encodeURIComponent(MERCHANT_UPI)}&pn=${encodeURIComponent(MERCHANT_NAME)}&cu=INR&tn=${encodeURIComponent('Reel Meet Discuss')}&mc=5499`; 
-      document.getElementById('upiLink').value = upiData;
+      // *** FINAL CHANGE: UPI deep link is now just the protocol to force the UPI app to open to the homepage or selector. ***
+      const upiData = `upi://`; 
+      // Note: We don't set this to an input field anymore, but we'll still use it for the openDeepLink function
       
       document.querySelector('.insta-link').href = INSTAGRAM_LINK;
       document.getElementById('upiVpaDisplay').innerText = MERCHANT_UPI; // Show UPI ID
@@ -387,15 +386,15 @@
     }
 
     function copyUPI(){
-      const val = document.getElementById('upiLink').value;
-      navigator.clipboard && navigator.clipboard.writeText(val).then(()=>{
-        alert('UPI Link copied. Open your UPI app and paste to pay.');
-      }, ()=>{ alert('Copy failed. Please copy manually.') });
+        // CopyUPI now copies only the VPA since the deep link is useless
+        navigator.clipboard && navigator.clipboard.writeText(MERCHANT_UPI).then(()=>{
+            alert('UPI ID copied: ' + MERCHANT_UPI + '. Use this for manual payment.');
+        }, ()=>{ alert('Copy failed. Please copy the UPI ID directly (Khushi.0@ptyes).') });
     }
 
     function openDeepLink(){
-      const val = document.getElementById('upiLink').value;
-      window.location.href = val; 
+      // OpenDeepLink uses the generic upi:// link
+      window.location.href = `upi://`; 
     }
 
     function iPaid(){
