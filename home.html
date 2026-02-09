@@ -42,11 +42,9 @@
         .scroller { display: flex; gap: 24px; animation: scroll 50s linear infinite; width: max-content; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* Chora (Wide) Notification Toast */
         #notify-toast { 
             position: fixed; bottom: 100px; left: 20px; 
-            width: 320px; /* Made wider */
-            background: rgba(30, 41, 59, 0.98); 
+            width: 320px; background: rgba(30, 41, 59, 0.98); 
             backdrop-filter: blur(15px); border-radius: 22px; padding: 16px 22px; 
             display: flex; align-items: center; gap: 18px; z-index: 10000; 
             transform: translateY(250%); transition: 0.8s cubic-bezier(0.18, 0.89, 0.32, 1.28); 
@@ -96,7 +94,7 @@
                 <p class="text-[11px] text-slate-400 leading-relaxed">India's most trusted Escort network. Discrete, verified, and professional.</p>
                 <div class="flex gap-4">
                     <a href="https://t.me/Xnehhaa" class="text-slate-400 hover:text-blue-500 text-2xl transition-all"><i class="fab fa-telegram-plane"></i></a>
-                    <a href="https://instagram.com/your_handle" class="text-slate-400 hover:text-pink-500 text-2xl transition-all"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-slate-400 hover:text-pink-500 text-2xl transition-all"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
             <div>
@@ -123,26 +121,31 @@
 
         const firstNames = ["Sneha", "Zoya", "Ananya", "Mehak", "Sana", "Ishita", "Priya", "Riya", "Kavya", "Tanya", "Simran", "Nisha", "Kiara", "Muskan"];
         const lastNames = ["Sharma", "Khan", "Malhotra", "Sheikh", "Verma", "Ahmed", "Kapoor", "Gupta"];
-        
-        const boyNames = ["Rohan", "Vikram", "Sahil", "Sameer", "Deepak", "Akash", "Rahul", "Abhishek", "Karan", "Piyush", "Manish", "Sandeep", "Amit", "Vivek", "Sanjay", "Ankit", "Arjun", "Sumit", "Raj", "Sunny", "Bunty", "Prateek", "Harsh", "Varun", "Mayank", "Ishaan", "Yash", "Aryan", "Nitin", "Deep"];
-        
+        const boyNames = ["Rohan", "Vikram", "Sahil", "Sameer", "Deepak", "Akash", "Rahul", "Abhishek", "Karan", "Piyush", "Manish", "Sandeep"];
         const boyReviews = [
-            "Bhai ekdam real escort thi, maza aa gaya!", "Best escort service in town, no fake drama.", "Highly recommended, direct meeting hui.", "Photos se bhi zyada sundar hai.", "Telegram pe response bahut fast hai.", "Safe aur private session tha, thanks!", "Genuine profiles, first time experience mast tha.", "No advance scam, trusted network hai.", "Super clean and professional service.", "Service was 10/10, definitely coming back.", "Bandi bahut friendly thi, feel hi nahi hua.", "Worth every penny, try it once.", "Best collection of girls in this area.", "Sabse real aur verified network.", "Very discrete, privacy is best here."
+            "Bhai ekdam real escort thi, maza aa gaya!", "Best escort service in town, no fake drama.", "Highly recommended, direct meeting hui.", "Photos se bhi zyada sundar hai.", "Telegram pe response bahut fast hai.", "Safe aur private session tha, thanks!"
         ];
 
         const desiSexyMsgs = [
-            "Baby, main hotel pahonch gayi hoon.. jaldi aao 💋", "Direct escort meeting hai, no advance 🔥", "Aaj night stay ka mood hai mera.. ready ho? 🌙", "Mera naya photoshoot dekha? Ekdam sexy hai 👙", "Aaj raat maza aayega, booking confirm karo fast 🥂", "Suna hai aap bahut bade khiladi ho? 😉", "Main Rohini mein hoon, jaldi message karo baby.. 📍", "Pehli baar mil rahe hain, thoda romantic hona chahiye ✨"
+            "Baby, main hotel pahonch gayi hoon.. jaldi aao 💋", "Direct escort meeting hai, no advance 🔥", "Aaj night stay ka mood hai mera.. ready ho? 🌙", "Mera naya photoshoot dekha? Ekdam sexy hai 👙"
         ];
 
         function initHome() {
             const city = localStorage.getItem('selectedCity') || "Delhi";
             document.getElementById('cityStatus').innerText = `Verified Escorts In ${city}`;
+            
+            // Logic Fix: Ensure areas is always an array
+            const currentAreas = indiaData[city] || ["Main Market", "VIP Area", "Station Road", "Civil Lines"];
+            
             const grid = document.getElementById('grid-container');
             let profileHTML = "";
 
             for(let i=0; i<60; i++) {
                 const fullName = firstNames[Math.floor(Math.random()*firstNames.length)] + " " + lastNames[Math.floor(Math.random()*lastNames.length)];
-                const area = (indiaData[city] || ["Main Market", "VIP Area"])[Math.floor(Math.random()*3)];
+                
+                // Fixed Area Picking Logic
+                const area = currentAreas[Math.floor(Math.random() * currentAreas.length)];
+                
                 const img = `pic${(i % 80) + 1}.jpg`;
                 const dist = (Math.random() * (15 - 8) + 8).toFixed(1);
                 const ratingValue = (Math.random() * (5.0 - 4.6) + 4.6).toFixed(1);
@@ -168,7 +171,7 @@
             }
             grid.innerHTML = profileHTML;
 
-            // Randomized Footer Reviews (3 per load)
+            // Randomized Footer Reviews
             let footerRevHTML = "";
             for(let k=0; k<3; k++) {
                 footerRevHTML += `<div><p class="text-[9px] text-slate-400 italic">"${boyReviews[Math.floor(Math.random()*boyReviews.length)]}"</p><p class="text-[8px] text-blue-500 font-bold mt-1">- ${boyNames[Math.floor(Math.random()*boyNames.length)]} ✅</p></div>`;
@@ -181,7 +184,7 @@
             for(let j=0; j<20; j++) {
                 revs += `<div class="bg-slate-900/60 p-5 rounded-2xl border border-white/5 min-w-[240px]">
                     <p class="text-[10px] text-slate-400 italic">"${boyReviews[Math.floor(Math.random()*boyReviews.length)]}"</p>
-                    <p class="text-[8px] font-bold text-blue-500 mt-3 uppercase tracking-widest">- ${boyNames[Math.floor(Math.random()*boyNames.length)]} Verified ✅</p>
+                    <p class="text-[8px] font-bold text-blue-500 mt-3 uppercase tracking-widest">- ${boyNames[Math.floor(Math.random()*boyNames.length)]} ✅</p>
                 </div>`;
             }
             track.innerHTML = revs + revs;
